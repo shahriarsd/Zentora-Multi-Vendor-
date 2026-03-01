@@ -23,7 +23,7 @@ Route::get('/customer/dashboard', function () {
 Route::middleware(['auth', 'verified','RoleMiddleware:admin'])->group(function () {
  Route::prefix('admin')->group(function(){
  Route::controller(AdminMainController::class)->group(function(){
- Route::get('/dashboard', 'index')->name('admin.dashboard');
+ Route::get('/dashboard', 'index')->name('admin');
  Route::get('/settings', 'setting')->name('admin.settings');
  Route::get('/manage/users', 'manage_user')->name('admin.manage.user');
  Route::get('/manage/stores', 'manage_store')->name('admin.manage.store');
