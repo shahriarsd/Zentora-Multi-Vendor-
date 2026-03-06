@@ -1,6 +1,6 @@
 @extends('admin.layouts.layout')
 @section('admin_page_title')
-    create category
+    Edit Sub category
 @endsection
 @section('admin_layout')
     <div class="row">
@@ -8,7 +8,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Create Category</h5>
+                    <h5 class="card-title mb-0">Edit Sub Category</h5>
                 </div>
                 <div class="card-body">
 
@@ -30,11 +30,12 @@
                     @endif
 
 
-                    <form action="{{ route('store.cat') }}" method="post">
+                    <form action="{{ route('update.subcat',$subcategory_info->id) }}" method="post">
                         @csrf
-                        <label for="Category_name" class="fw-bold mb-2">Give name for your category </label>
-                        <input type="text" class="form-control" name="category_name"placeholder="computer">
-                        <button type="submit" class="btn btn-primary w-100 mt-2">Add Category</button>
+                        @method('put')
+                        <label for="subCategory_name" class="fw-bold mb-2">Give name for your subcategory </label>
+                        <input type="text" class="form-control" name="subcategory_name" value="{{ $subcategory_info->subcategory_name }}">
+                        <button type="submit" class="btn btn-primary w-100 mt-2">Update sub Category</button>
 
                     </form>
                 </div>

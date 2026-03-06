@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\AdminMainController;
 use App\Http\Controllers\Customer\CustomerMainController;
 use App\Http\Controllers\MasterCategoryController;
+use App\Http\Controllers\MasterSubcategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\SellerMainController;
 use App\Http\Controllers\Seller\SellerProductController;
@@ -68,10 +69,19 @@ Route::middleware(['auth', 'verified','RoleMiddleware:admin'])->group(function (
 
  Route::controller(MasterCategoryController::class)->group(function(){
  Route::post('/store/category', 'storecat')->name('store.cat');
+ Route::get('/category/{id}', 'showcat')->name('show.cat');
+ Route::put('/category/update/{id}', 'updatecat')->name('update.cat');
+ Route::delete('/category/delete/{id}', 'deletecat')->name('delete.cat');
 
+ });
 
+Route::controller(MasterSubcategoryController::class)->group(function(){
+ Route::post('/store/subcategory', 'storesubcat')->name('store.subcat');
+ Route::get('/subcategory/{id}', 'showsubcat')->name('show.subcat');
+ Route::put('/subcategory/update/{id}', 'updatesubcat')->name('update.subcat');
+ Route::delete('/subcategory/delete/{id}', 'deletesubcat')->name('delete.subcat');
 
-  });
+ });
 
 
 
@@ -107,8 +117,9 @@ Route::middleware(['auth', 'verified','RoleMiddleware:vendor'])->group(function 
 // customer route
 Route::middleware(['auth', 'verified','RoleMiddleware:customer'])->group(function () {
  Route::prefix('user')->group(function(){
+
  Route::controller(CustomerMainController::class)->group(function(){
- Route::get('/dashboard', 'index')->name('dashboard');
+ Route::get('/dashboard', 'index')->name('customer');
  Route::get('/order/history', 'history')->name('customer.history');
  Route::get('/setting/payment', 'payment')->name('customer.payment');
  Route::get('/affiliate', 'affiliate')->name('customer.affiliate');
