@@ -55,6 +55,11 @@ Route::middleware(['auth', 'verified','RoleMiddleware:admin'])->group(function (
  Route::controller(ProductAttributeController::class)->group(function(){
  Route::get('/productattribute/create', 'index')->name('productattribute.create');
  Route::get('/productattribute/manage', 'manage')->name('productattribute.manage');
+ Route::post('/defaultattribute/create', 'createattribute')->name('attribute.create');
+  Route::get('/defaultattribute/{id}', 'showattribute')->name('show.attribute');
+ Route::put('/defaultattribute/update/{id}', 'updateattribute')->name('update.attribute');
+ Route::delete('/defaultattribute/delete/{id}', 'deleteattribute')->name('delete.attribute');
+
 
 
   });
@@ -99,6 +104,7 @@ Route::middleware(['auth', 'verified','RoleMiddleware:vendor'])->group(function 
 
          Route::controller(SellerProductController::class)->group(function(){
          Route::get('/product/create', 'index')->name('vendor.product');
+         Route::post('/product/store', 'storeproduct')->name('vendor.product.store');
          Route::get('/product/manage', 'manage')->name('vendor.product.manage');
 
         });
@@ -106,6 +112,7 @@ Route::middleware(['auth', 'verified','RoleMiddleware:vendor'])->group(function 
          Route::controller(SellerStoreController::class)->group(function(){
          Route::get('/store/create', 'index')->name('vendor.store');
          Route::get('/store/manage', 'manage')->name('vendor.store.manage');
+         Route::post('/store/publish','store')->name('create.store');
 
         });
 
@@ -119,7 +126,7 @@ Route::middleware(['auth', 'verified','RoleMiddleware:customer'])->group(functio
  Route::prefix('user')->group(function(){
 
  Route::controller(CustomerMainController::class)->group(function(){
- Route::get('/dashboard', 'index')->name('customer');
+ Route::get('/dashboard', 'index')->name('dashboard');
  Route::get('/order/history', 'history')->name('customer.history');
  Route::get('/setting/payment', 'payment')->name('customer.payment');
  Route::get('/affiliate', 'affiliate')->name('customer.affiliate');

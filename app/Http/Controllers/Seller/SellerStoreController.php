@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SellerStoreController extends Controller
 {
@@ -12,6 +14,27 @@ class SellerStoreController extends Controller
     }
 
     public function manage(){
-        return view('seller.store.manage');
+        $userid = Auth::user()->id;
+        $userid = Auth::user()->id;
+        $stores = Store::where('user_id',$userid )->get();
+        return view('seller.store.manage', compact('stores'));
+    }
+
+    public function store(Request $request){
+         $validate_data = $request->validate([
+            'store_name'=>'unique:stores|max:100|min:10',
+            'slug'=>'required|unique:stores',
+            'details'=>'required',
+
+        ]);
+
+        Store::create([
+            'store_name'=>$request->store_name,
+            'slug'=>$request->slug,
+            'details'=>$request->details,
+            'user_id'=>Auth::user()->id
+        ]);
+
+        return redirect()->back()->with('message', 'Store created successfully');
     }
 }
